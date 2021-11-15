@@ -1,4 +1,3 @@
-/* TODO: Change this to a local font */
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
 * {
@@ -13,7 +12,6 @@ body {
   align-items: center;
   width: 100vw;
   min-height: 100vh;
-  /* TODO: change to a different background depending on the weather */
   background-image: radial-gradient(
     circle 993px at 0.5% 50.5%,
     rgba(137, 171, 245, 0.37) 0%,
