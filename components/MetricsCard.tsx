@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./MetricsCard.module.css";
 
-export const MetricsCard = ({ title, iconSrc, metric, unit }: any) => {
+export const MetricsCard = ({ title, iconSrc, metric, unit }) => {
   return (
     <div className={styles.wrapper}>
       <p>{title}</p>
