@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
 import styles from "../styles/App.module.css";
 
 import { MainCard } from "../components/MainCard";
@@ -57,12 +57,14 @@ const App: NextPage = () => {
           <Search
             placeHolder="Search a city..."
             value={cityInput}
-            onFocus={(e) => {
+            onFocus={(e: ChangeEvent<HTMLInputElement>) => {
               e.target.value = "";
               e.target.placeholder = "";
             }}
-            onChange={(e) => setCityInput(e.target.value)}
-            onKeyDown={(e) => {
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setCityInput(e.target.value)
+            }
+            onKeyDown={(e: any) => {
               e.keyCode === 13 && setTriggerFetch(!triggerFetch);
               e.target.placeholder = "Search a city...";
             }}
@@ -75,9 +77,13 @@ const App: NextPage = () => {
   ) : weatherData && weatherData.message ? (
     <ErrorScreen errorMessage="City not found, try again!">
       <Search
-        onFocus={(e) => (e.target.value = "")}
-        onChange={(e) => setCityInput(e.target.value)}
-        onKeyDown={(e) => e.keyCode === 13 && setTriggerFetch(!triggerFetch)}
+        onFocus={(e: ChangeEvent<HTMLInputElement>) => (e.target.value = "")}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setCityInput(e.target.value)
+        }
+        onKeyDown={(e: KeyboardEvent) =>
+          e.keyCode === 13 && setTriggerFetch(!triggerFetch)
+        }
       />
     </ErrorScreen>
   ) : (

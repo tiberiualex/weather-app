@@ -1,4 +1,7 @@
-import { System } from "./Types";
+export type WeatherRequest = {
+  cityInput: number;
+};
+
 export type Weather = {
   id: number;
   main: string;
@@ -52,3 +55,30 @@ export type CurrentWeather = {
   name: string;
   cod: 200; // Internal parameter
 };
+
+export type Directions =
+  | "N"
+  | "NNE"
+  | "NE"
+  | "ENE"
+  | "E"
+  | "ESE"
+  | "SE"
+  | "SSE"
+  | "S"
+  | "SSW"
+  | "SW"
+  | "WSW"
+  | "W"
+  | "WNW"
+  | "NW"
+  | "NNW";
+
+export type Weekdays =
+  | "Sunday"
+  | "Monday"
+  | "Tuesday"
+  | "Wednesday"
+  | "Thursday"
+  | "Friday"
+  | "Saturday";
