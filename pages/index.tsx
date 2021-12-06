@@ -11,13 +11,12 @@ import { MetricsBox } from "../components/MetricsBox";
 import { UnitSwitch } from "../components/UnitSwitch";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { ErrorScreen } from "../components/ErrorScreen";
-
-type UnitSystem = "metric" | "imperial";
+import { CurrentWeather, UnitSystem } from "../types/Types";
 
 const App: NextPage = () => {
   const [cityInput, setCityInput] = useState<string>("Bucharest");
   const [triggerFetch, setTriggerFetch] = useState<boolean>(true);
-  const [weatherData, setWeatherData] = useState<any>();
+  const [weatherData, setWeatherData] = useState<CurrentWeather>();
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
 
   useEffect(() => {

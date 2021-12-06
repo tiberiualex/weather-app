@@ -53,7 +53,12 @@ export type CurrentWeather = {
   timezone: number;
   id: number;
   name: string;
-  cod: 200; // Internal parameter
+  cod: string; // Internal parameter, status code: "200", "404" etc
+  message?: string;
+};
+
+export type ErrorResponse = {
+  message: string;
 };
 
 export type Directions =
@@ -82,3 +87,5 @@ export type Weekdays =
   | "Thursday"
   | "Friday"
   | "Saturday";
+
+export type UnitSystem = "metric" | "imperial";

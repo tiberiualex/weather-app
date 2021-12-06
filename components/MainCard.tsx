@@ -1,6 +1,16 @@
 import Image from "next/image";
 import { ctoF } from "../services/converters";
 import styles from "./MainCard.module.css";
+import { UnitSystem, CurrentWeather } from "../types/Types";
+
+type MainCardProps = {
+  city: string;
+  country: string;
+  description: string;
+  iconName: string;
+  unitSystem: UnitSystem;
+  weatherData: CurrentWeather;
+};
 
 export const MainCard = ({
   city,
@@ -9,7 +19,7 @@ export const MainCard = ({
   iconName,
   unitSystem,
   weatherData,
-}: any) => {
+}: MainCardProps) => {
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.location}>

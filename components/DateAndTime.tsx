@@ -1,7 +1,13 @@
 import { getWeekDay, getTime, getAMPM } from "../services/helpers";
 import styles from "./DateAndTime.module.css";
+import { CurrentWeather, UnitSystem } from "../types/Types";
 
-export const DateAndTime = ({ weatherData, unitSystem }: any) => {
+type DateAndTimeProps = {
+  weatherData: CurrentWeather;
+  unitSystem: UnitSystem;
+};
+
+export const DateAndTime = ({ weatherData, unitSystem }: DateAndTimeProps) => {
   return (
     <div className={styles.wrapper}>
       <h2>
