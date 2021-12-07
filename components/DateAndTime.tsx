@@ -11,11 +11,9 @@ export const DateAndTime = ({ weatherData, unitSystem }: DateAndTimeProps) => {
   return (
     <div className={styles.wrapper}>
       <h2>
-        {`${getWeekDay(weatherData)}, ${getTime(
-          unitSystem,
-          weatherData.dt,
-          weatherData.timezone
-        )} ${getAMPM(unitSystem, weatherData.dt, weatherData.timezone)}`}
+        {`${getWeekDay(weatherData)},
+        ${getTime(unitSystem, weatherData.dt, weatherData.timezone)}
+        ${getAMPM(unitSystem, weatherData.dt, weatherData.timezone)}`}
       </h2>
     </div>
   );
