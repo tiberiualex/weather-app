@@ -1,6 +1,14 @@
 import styles from "./ErrorScreen.module.css";
+import { PropsWithChildren } from "react";
 
-export const ErrorScreen = ({ errorMessage, children }: any) => {
+type ErrorScreenProps = {
+  errorMessage: string;
+};
+
+export const ErrorScreen = ({
+  errorMessage,
+  children,
+}: PropsWithChildren<ErrorScreenProps>) => {
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.message}>{errorMessage}</h1>
