@@ -1,21 +1,15 @@
 import styles from "./Search.module.css";
 
-export const Search = ({
-  placeHolder,
-  value,
-  onFocus,
-  onChange,
-  onKeyDown,
-}: any) => {
+export const Search = ({ placeHolder, value, onChange, onSubmit }: any) => {
   return (
-    <input
-      className={styles.search}
-      type="text"
-      placeholder={placeHolder}
-      value={value}
-      onFocus={onFocus}
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-    />
+    <form onSubmit={onSubmit}>
+      <input
+        className={styles.search}
+        type="text"
+        placeholder={placeHolder}
+        value={value}
+        onChange={onChange}
+      />
+    </form>
   );
 };

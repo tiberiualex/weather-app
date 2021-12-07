@@ -44,11 +44,11 @@ export async function getServerSideProps() {
 }
 
 const WeatherApp = () => {
-  const [cityInput, setCityInput] = useState<string>("Bucharest");
+  const [cityInput, setCityInput] = useState<string | null>("Bucharest");
   const [triggerFetch, setTriggerFetch] = useState<boolean>(true);
-  const [weatherData2, setWeatherData] = useState<CurrentWeather>();
+  const [searchTerm, setSearchTerm] = useState<string | null>("Bucharest");
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
-  const { weatherData } = useWeather(cityInput);
+  const { weatherData } = useWeather(searchTerm);
 
   const changeSystem = () =>
     unitSystem == "metric"
@@ -71,16 +71,12 @@ const WeatherApp = () => {
           <Search
             placeHolder="Search a city..."
             value={cityInput}
-            onFocus={(e: ChangeEvent<HTMLInputElement>) => {
-              e.target.value = "";
-              e.target.placeholder = "";
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setCityInput(e.target.value);
             }}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setCityInput(e.target.value)
-            }
-            onKeyDown={(e: any) => {
-              e.keyCode === 13 && setTriggerFetch(!triggerFetch);
-              e.target.placeholder = "Search a city...";
+            onSubmit={(e: SubmitEvent) => {
+              e.preventDefault();
+              setSearchTerm(cityInput);
             }}
           />
         </Header>
@@ -91,13 +87,14 @@ const WeatherApp = () => {
   ) : weatherData && weatherData.message ? (
     <ErrorScreen errorMessage="City not found, try again!">
       <Search
-        onFocus={(e: ChangeEvent<HTMLInputElement>) => (e.target.value = "")}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setCityInput(e.target.value)
-        }
-        onKeyDown={(e: KeyboardEvent) =>
-          e.keyCode === 13 && setTriggerFetch(!triggerFetch)
-        }
+        placeHolder="Search a city..."
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          setCityInput(e.target.value);
+        }}
+        onSubmit={(e: SubmitEvent) => {
+          e.preventDefault();
+          setSearchTerm(cityInput);
+        }}
       />
     </ErrorScreen>
   ) : (
