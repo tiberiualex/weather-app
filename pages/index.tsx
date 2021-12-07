@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
 import styles from "../styles/App.module.css";
+import useSWR, { SWRConfig } from "swr";
 
 import { MainCard } from "../components/MainCard";
 import { ContentBox } from "../components/ContentBox";
@@ -13,27 +14,41 @@ import { LoadingScreen } from "../components/LoadingScreen";
 import { ErrorScreen } from "../components/ErrorScreen";
 import { CurrentWeather, UnitSystem } from "../types/Types";
 
-const App: NextPage = () => {
+const dev = process.env.NODE_ENV !== "production";
+
+const server = dev ? "http://localhost:3000" : "http://localhost:3000";
+
+const fetcher = (url: string) =>
+  fetch(`${server}/${url}`).then((res) => res.json());
+
+function useWeather(city: string) {
+  const { data, error } = useSWR(`api/weather/${city}`, fetcher);
+
+  return {
+    weatherData: data,
+    isLoading: !error && !data,
+    isError: error,
+  };
+}
+
+export async function getServerSideProps() {
+  const weatherData = await fetcher(`api/weather/Paris`);
+
+  return {
+    props: {
+      fallback: {
+        [`api/weather/Paris`]: weatherData,
+      },
+    },
+  };
+}
+
+const WeatherApp = () => {
   const [cityInput, setCityInput] = useState<string>("Bucharest");
   const [triggerFetch, setTriggerFetch] = useState<boolean>(true);
-  const [weatherData, setWeatherData] = useState<CurrentWeather>();
+  const [weatherData2, setWeatherData] = useState<CurrentWeather>();
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
-
-  useEffect(() => {
-    const getData = async () => {
-      const res = await fetch("api/data", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cityInput }),
-      });
-
-      const data = await res.json();
-      setWeatherData({ ...data });
-      setCityInput("");
-    };
-
-    getData();
-  }, [triggerFetch]);
+  const { weatherData } = useWeather(cityInput);
 
   const changeSystem = () =>
     unitSystem == "metric"
@@ -87,6 +102,14 @@ const App: NextPage = () => {
     </ErrorScreen>
   ) : (
     <LoadingScreen loadingMessage="Loading data..." />
+  );
+};
+
+const App = ({ fallback }: { fallback: CurrentWeather }) => {
+  return (
+    <SWRConfig value={{ fallback }}>
+      <WeatherApp />
+    </SWRConfig>
   );
 };
 

@@ -1,13 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { CurrentWeather, WeatherRequest } from "../../types/Types";
+import { CurrentWeather } from "../../../types/Types";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<CurrentWeather>
 ) {
-  const { cityInput } = req.body;
+  console.log(req.query.city);
   const getWeatherData = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`
+    `https://api.openweathermap.org/data/2.5/weather?q=${req.query.city}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`,
+    {
+      headers: { "Content-Type": "application/json" },
+    }
   );
 
   const data: CurrentWeather = await getWeatherData.json();
