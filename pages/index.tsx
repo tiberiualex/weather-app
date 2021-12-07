@@ -44,9 +44,9 @@ export async function getServerSideProps() {
 }
 
 const WeatherApp = () => {
-  const [cityInput, setCityInput] = useState<string | null>("Bucharest");
+  const [cityInput, setCityInput] = useState<string>("Bucharest");
   const [triggerFetch, setTriggerFetch] = useState<boolean>(true);
-  const [searchTerm, setSearchTerm] = useState<string | null>("Bucharest");
+  const [searchTerm, setSearchTerm] = useState<string>("Bucharest");
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
   const { weatherData } = useWeather(searchTerm);
 
