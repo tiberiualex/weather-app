@@ -1,5 +1,4 @@
-import type { NextPage } from "next";
-import { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import styles from "../styles/App.module.css";
 import useSWR, { SWRConfig } from "swr";
 
